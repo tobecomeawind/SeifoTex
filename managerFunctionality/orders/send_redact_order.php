@@ -1,0 +1,27 @@
+<?php
+
+require_once('../../database.php');
+$name              = $_POST['name'];
+$phone             = $_POST['phone'];
+$address           = $_POST['address'];
+$date              = $_POST['date'];
+$model             = $_POST['model'];
+
+$atms_request = $connection->query("SELECT * FROM `atms` WHERE `Model`='$model'");
+$atm_info = $atms_request->fetch_assoc();
+$id_atm = $atm_info['ID_ATM'];
+
+$status			   = $_POST['status'];
+$id_client         = $_POST['id_client'];
+$id_order          = $_POST['id_order'];
+$client_request_id = $_POST['client_request_id'];
+
+
+$connection->query("UPDATE `clients` SET `Номер телефона`='$phone',`ФИО`='$name',`АДРЕС`='$address' WHERE `ID_Client`='$id_client'");
+
+
+$connection->query("UPDATE `orders` SET `ID_ATM`='$id_atm',`Date`='$date',`Status`='$status' WHERE `ID_Order`='$id_order'");
+
+header("Location: manager_orders.php");
+
+?>

@@ -6,7 +6,7 @@
 	font-family: "Poppins", sans-serif;
 }
 body{
-	background: white;
+	background: black;
 }
 .container{
 	display: flex;
@@ -15,7 +15,7 @@ body{
 }
 
 .box{
-	background: #000000;
+	background: dodgerblue;
 	display: flex;
 	flex-direction: column;
 	padding: 25px 25px;

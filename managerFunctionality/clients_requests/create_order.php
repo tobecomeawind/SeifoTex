@@ -15,7 +15,7 @@
                 <label for="name">ФИО клиента</label>
                 <input type="text" placeholder="Введите ФИО" name="name" id="name" value= 
                 <?php
-                echo $_POST['name'];
+                echo "'".$_POST['name']."'";
                 ?>
                 required>
             </div>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="field input">
-                <label for="address">Дата</label>
+                <label for="date">Дата</label>
                 <input type="date" placeholder="Введите адрес" name="date" id="date"  value=<?php 
             	echo date('Y-m-d');
             	?> 
@@ -43,9 +43,31 @@
             </div>
 
             <div class="field input">
-                <label for="address">Модель банкомата</label>
-                <input type="text" placeholder="Введите модель банкомата" name="model" id="model" required>
+
+                <label for="model">Модель банкомата</label>
+                    <input id="model" name="model" list="atms" placeholder="Введите модель банкомата" required>
+                    <datalist id='atms'>
+
+                        <option value="">Не указано</option>
+
+                        <?php
+
+                        require_once('../../database.php');
+
+                        $atms_info = $connection->query('SELECT * FROM `atms`');
+
+                        while($row = mysqli_fetch_array($atms_info)){
+
+                            echo "<option value='".$row['Model']."'>".$row['Model']."</option>";
+                        }
+
+                        ?>
+
+                    </datalist>
+                    
             </div>
+            
+            <input type='hidden' name='client_request_id' value=<?php echo $_POST['id_request'];?>>
 
 
             <div class="field">

@@ -25,9 +25,8 @@
                 </div>
 
                 <div class="field">
-                    <input type="submit" name="submit" value="Вход" required>
+                    <input type="submit" name="submit" value="Войти" required>
                 </div>
-                <a href="registration.php"><p><center>Регистрация</center></p></a>
             </form>
         </div>
     </div>

@@ -10,11 +10,14 @@
     <header>
         <nav>
             <ul>
-                <form action="client_requests.php" method="post">
+                <form action="clients_requests/client_requests.php" method="post">
                     <button type="submit" name="button">Заявки</button>
                 </form>
-                <form action="manager_orders.php" method="post">
+                <form action="orders/manager_orders.php" method="post">
                     <button type="submit" name="button">Созданные заказы</button>
+                </form>
+                <form action="clients/clients.php" method="post">
+                    <button type="submit" name="button">Клиенты</button>
                 </form>
             </ul>
         </nav>
