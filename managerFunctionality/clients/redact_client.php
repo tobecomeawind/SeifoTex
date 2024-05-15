@@ -22,7 +22,7 @@
 
             <div class="field input">
                 <label for="phone">Номер телефона</label>
-                <input type="text" placeholder="7-123-456-78-90" name="phone" id="phone" value=
+                <input type="tel" pattern="[7-8]{1}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" placeholder="7-123-456-78-90" name="phone" id="phone" value=
                 <?php
                 echo $_POST['phone'];
                 ?> 
@@ -33,12 +33,8 @@
                 <label for="address">Адрес</label>
                 <input type="text" placeholder="Введите адрес" name="address" id="address" value=<?php echo "'".$_POST['address']."'";?> required>
             </div>
-            
-            <input type='hidden' name='name' value=<?php echo $_POST['name'];?>>
 
-            <input type='hidden' name='phone' value=<?php echo $_POST['phone'];?>>
-
-            <input type='hidden' name='address' value=<?php echo $_POST['address'];?>>
+            <input type='text' name='id_client' value=<?php echo "'".$_POST['id_client']."'";?>>
 
             <div class="field">
                 <input type="submit" name="submit" value="Изменить" required>

@@ -5,6 +5,7 @@ $name              = $_POST['name'];
 $phone             = $_POST['phone'];
 $address           = $_POST['address'];
 $date              = $_POST['date'];
+$problem           = $_POST['problem'];
 $model             = $_POST['model'];
 
 $atms_request = $connection->query("SELECT * FROM `atms` WHERE `Model`='$model'");
@@ -19,8 +20,9 @@ $client_request_id = $_POST['client_request_id'];
 
 $connection->query("UPDATE `clients` SET `Номер телефона`='$phone',`ФИО`='$name',`АДРЕС`='$address' WHERE `ID_Client`='$id_client'");
 
-
 $connection->query("UPDATE `orders` SET `ID_ATM`='$id_atm',`Date`='$date',`Status`='$status' WHERE `ID_Order`='$id_order'");
+
+$connection->query("UPDATE `clients_requests` SET `phone`='$phone',`name`='$name',`problem`='$problem' WHERE `ID_Request`='$client_request_id'");
 
 header("Location: manager_orders.php");
 

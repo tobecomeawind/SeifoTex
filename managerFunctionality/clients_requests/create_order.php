@@ -66,6 +66,16 @@
                     </datalist>
                     
             </div>
+
+            <div class="field input">
+                <label for="name">Проблема клиента</label>
+                <input type="text" placeholder="Проблема" name="problem" id="problem" value= 
+                <?php
+                echo "'".$_POST['problem']."'";
+                ?>
+                required>
+            </div>
+
             
             <input type='hidden' name='client_request_id' value=<?php echo $_POST['id_request'];?>>
 

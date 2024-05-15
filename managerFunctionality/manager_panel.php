@@ -6,6 +6,9 @@
     <title>Менеджер заказов</title>
     <link rel="stylesheet" href="style.css">
 </head>
+</head>
+<h1><center>Добро пожаловать Менеджер Заказов!</center></h1>
+</html>
 <body>
     <header>
         <nav>

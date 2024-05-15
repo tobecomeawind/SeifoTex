@@ -27,7 +27,7 @@ if ($result->num_rows > 0){
 
         case "stock":
 
-            header("Location: stock_panel.php");
+            header("Location: stockFunctionality/stock_panel.php");
             break;
 
         case 'engineer':

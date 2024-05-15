@@ -8,10 +8,10 @@
     <title>Панель техника</title>
 </head>
 <h1><center>Добро пожаловать Техник</center></h1>
-<form action="engineer_repairs.php" method="post">
+<form action="repairs/engineer_repairs.php" method="post">
     <button type="submit" name="button">Мои заказы</button>
 </form>
-<form action="engineer_orders.php" method="post">
+<form action="orders/engineer_orders.php" method="post">
     <button type="submit" name="button">Заказы</button>
 </form>
 </html>

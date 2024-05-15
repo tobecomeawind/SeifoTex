@@ -1,8 +1,6 @@
 <?php
 
-session_start();
-
-require_once('../database.php');
+require_once('../../database.php');
 
 $id_order = $_POST['ID_Order'];
 

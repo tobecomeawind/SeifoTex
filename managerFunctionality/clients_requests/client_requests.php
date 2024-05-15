@@ -21,6 +21,7 @@ while ($row = mysqli_fetch_array($client_requests)) {
     echo "<input type='hidden' name='name' value='" . $row['name'] . "'>";
     echo "<input type='hidden' name='phone' value='" . $row['phone'] . "'>";
     echo "<input type='hidden' name='id_request' value='" . $row['ID_Request'] . "'>";
+    echo "<input type='hidden' name='problem' value='" . $row['problem'] . "'>";
     echo "<button type='submit' name='create_order'>Cоздать заказ</button>";
     echo "</form>";
 

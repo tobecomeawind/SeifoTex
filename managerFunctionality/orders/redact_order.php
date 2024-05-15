@@ -103,6 +103,15 @@
                         ?>
                     </select>
             </div>
+
+            <div class="field input">
+                <label for="name">Проблема клиента</label>
+                <input type="text" placeholder="Проблема" name="problem" id="problem" value= 
+                <?php
+                echo "'".$_POST['problem']."'";
+                ?>
+                required>
+            </div>
             
             <input type='hidden' name='id_order' value=<?php echo $_POST['id_order'];?>>
 

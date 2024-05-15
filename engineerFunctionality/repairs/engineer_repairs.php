@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once('../database.php');
+require_once('../../database.php');
 
 $id_engineer = $_SESSION['ID_Engineer'];
 
@@ -22,6 +22,11 @@ while ($row = mysqli_fetch_array($repairs)) {
     $atm_query = $connection->query("SELECT * FROM `atms` WHERE `ID_ATM`='$id_atm' ");
     $atm_info  = $atm_query->fetch_assoc();
 
+    $id_req = $order_info['ID_Request'];
+    $atms = $connection->query("SELECT * FROM `clients_requests` WHERE `ID_Request`='$id_req'");
+    $atms_info = $atms->fetch_assoc();
+    $problem = $atms_info['problem'];
+
     echo "<div class='order' style='text-align: center'>";
     echo "<h2>Ремонтная услуга № " . $row['ID_Repair'] . "</h2>";
     echo "<p>Заказ №: " . $row['ID_Order'] . "</p>";
@@ -33,6 +38,10 @@ while ($row = mysqli_fetch_array($repairs)) {
     echo "<p>Телефон клиента: " . $client_info['Номер телефона'] . "</p>";
     echo "<p>Адрес: " . $client_info['АДРЕС'] . "</p>";
     echo "<p>Дата: " . $order_info['Date'] . "</p>";
+    echo "<details>";
+    echo "<summary> Проблема клиента </summary>";
+    echo "<p>" . $problem . "</p>";
+    echo "</details>";
     echo "</details>";
     echo "</body>";
 
