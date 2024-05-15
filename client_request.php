@@ -16,15 +16,8 @@ $name     = $_POST['contact_name'];
 $phone    = $_POST['contact_phone'];
 $problem  = $_POST['contact_message'];
 
-// $query_result = $connection->query("SELECT count(*) FROM `clients_requests` WHERE `phone` = '$phone'");
 
-// if (mysqli_fetch($query_result)[0] > 0){
-    
-//     echo "request in table";
-//     // header("Location: index.html");
-// }
-
-$connection->query("INSERT INTO `clients_requests`(`name`, `phone`, `problem`) VALUES ('$name','$phone','$problem')");
+$connection->query("INSERT INTO `clients_requests`(`name`, `phone`, `problem`, `Status`) VALUES ('$name','$phone','$problem', 'Создан')");
 
 header("Location: index.html");
 
