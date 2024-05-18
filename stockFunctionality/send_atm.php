@@ -2,7 +2,7 @@
 
 require_once("../database.php");
 
-$model = $_POST['model'];
+$model = $_POST['atm'];
 
 $connection->query("INSERT INTO `atms` (`Model`) VALUES ('$model')");
 

@@ -55,7 +55,7 @@
                 <input type="submit" name="submit" value="Создать" required>
 
         </form>
-        <form action="add_detail.php" method="POST">
+        <form action="add_atm_detail.php" method="POST">
             <div class="field input">
                 <label for="atm">Наименование банкомата</label>
                 <input type="atm" list="atms" placeholder="Выберите банкомат" name="atm" id="atm" value=<?php echo "'".$_POST['atm']."'";?>
