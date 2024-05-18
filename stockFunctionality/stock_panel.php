@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сотрудник склада</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="../style.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/jquery.tabledit.js"></script>
 </head>
 </head>
 <h1><center>Добро пожаловать сотрудник склада!</center></h1>
@@ -36,7 +38,8 @@
             </div>
         </form>
 <body>
-    <table style="width:80%; height:80%; margin-left:auto; margin-right:auto; text-align:center;"border="1;">
+
+    <table id="data_table" style="width:80%; height:80%; margin-left:auto; margin-right:auto; text-align:center;"border="1;">
 
       <tr>
         <th>ID Детали</th>
@@ -52,6 +55,7 @@
       require_once('../database.php');
 
       $details_query = $connection->query("SELECT * FROM `details`");
+
 
       while($row=mysqli_fetch_array($details_query)){
 
@@ -85,9 +89,25 @@
           echo "</tr>";
 
       }
+      $specifications = "";
+      $counter        = 0;
+
+      $specifications_query = $connection->query("SELECT * FROM `specifications`");
+
+      while($row=mysqli_fetch_array($specifications_query)){
+
+          $name_spec = $row['Name'];
+
+          $counter++;
+          $specifications = $specifications.'"'.$counter.'": "'.$name_spec.'",';
+
+        }
+
+    $specifications = substr($specifications, 0, strlen($specifications) - 1);
+    $specifications = "'{".$specifications."}'";
       ?>
 
 </table>
-
+<script type="text/javascript" src="custom_table_edit.js" specifications=<?= $specifications ?>></script>
 </body>
 </html>
