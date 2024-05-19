@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+unset($_SESSION['username']);
+unset($_SESSION['job']);
+unset($_SESSION['current_file']);
+
+$_SESSION['prev_file'] = $_SERVER['SCRIPT_NAME'];
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,10 +1,28 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION['current_file'])){
+    
+        $_SESSION['prev_file'] = $_SESSION['current_file'];
+    
+    }else{
+        $_SESSION['current_file'] = $_SERVER['SCRIPT_NAME'];
+    }
+
+    if (is_null($_SESSION['job']) or $_SESSION['job'] != 'admin'){
+        
+        header("Location: ../access_denied.php");
+
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <!-- <link rel="stylesheet" href="../style.css"> -->
     <title>Админ панель</title>
 </head>
 <h1><center>Добро пожаловать Админ!</center></h1>
@@ -72,5 +90,8 @@
     </div>
 </div>
 
+</body>
+<body>
+    <a href="index.php">Выход</a>
 </body>
 </html>

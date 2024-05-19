@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+if (isset($_SESSION['current_file'])){
+
+    $_SESSION['prev_file'] = $_SESSION['current_file'];
+
+}else{
+    $_SESSION['current_file'] = $_SERVER['SCRIPT_NAME'];
+}
+
+if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
+
+    header("Location: ../access_denied.php");
+
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +43,7 @@
 
                         <?php
 
-                        require_once('../database.php');
+                        require_once('../../database.php');
 
                         $spec_info = $connection->query('SELECT * FROM `specifications`');
 
@@ -62,8 +79,17 @@
                 <input type="submit" name="submit" value="Добавить" required>
 
         </form>
+                <form action="add_specification.php" method="POST">
+            <div class="field input">
+                <label for="spec">Название спецификации</label>
+                    <input type="text" placeholder="Введите название спецификации" name="spec" id="spec"
+                    required>
+                <button type="submit" name="button">Добавить спецификацию</button>
+            </div>
+
+        </form>
     </div>
 </div>
-
+<body> <a href='../stock_panel.php'>Назад</a> </body>
 </body>
 </html>

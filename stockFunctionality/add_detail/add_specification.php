@@ -14,15 +14,13 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
     header("Location: ../access_denied.php");
 
 }
-require_once("../database.php");
 
-$id_detail = $_POST['id_detail'];
-$quantity  = $_POST['quantity'];
+require_once('../database.php');
 
-$quantity += 1;
+$name = $_POST['spec'];
 
-$connection->query("UPDATE `details` SET `Quantity_details`='$quantity' WHERE `ID_Detail`='$id_detail'");
+$connection->query("INSERT INTO `specifications` (`Name`) VALUES ('$name')");
 
-header('Location: stock_panel.php');
+header("Location: stock_panel.php");
 
 ?>

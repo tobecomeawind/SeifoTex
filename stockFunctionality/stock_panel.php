@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+if (isset($_SESSION['current_file'])){
+
+    $_SESSION['prev_file'] = $_SESSION['current_file'];
+
+}else{
+    $_SESSION['current_file'] = $_SERVER['SCRIPT_NAME'];
+}
+
+if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
+
+    header("Location: ../access_denied.php");
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +33,7 @@
     <header>
         <nav>
             <ul>
-                <form action="add_detail.php" method="post">
+                <form action="add_detail/add_detail.php" method="post">
                     <button type="submit" name="button">Внести деталь</button>
                 </form>
             </ul>
@@ -24,16 +42,7 @@
 
 </body>
 
-        <form action="add_specification.php" method="POST">
-            <div class="field input">
-                <label for="spec">Название спецификации</label>
-                    <input type="text" placeholder="Введите название спецификации" name="spec" id="spec"
-                    required>
-                <button type="submit" name="button">Добавить спецификацию</button>
-            </div>
-
-        </form>
-        <form action="add_atm.php" method="POST">
+        <form action="add_atm/add_atm.php" method="POST">
                 <button type="submit" name="button">Добавить банкомат</button>
             </div>
         </form>
@@ -109,5 +118,8 @@
 
 </table>
 <script type="text/javascript" src="custom_table_edit.js" specifications=<?= $specifications ?>></script>
+</body>
+<body>
+    <a href="index.php">Выход</a>
 </body>
 </html>

@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+if (isset($_SESSION['current_file'])){
+
+    $_SESSION['prev_file'] = $_SESSION['current_file'];
+
+}else{
+    $_SESSION['current_file'] = $_SERVER['SCRIPT_NAME'];
+}
+
+if (is_null($_SESSION['job']) or $_SESSION['job'] != 'order'){
+
+    header("Location: ../access_denied.php");
+
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,4 +107,5 @@
 </div>
 
 </body>
+<body> <a href='../manager_panel.php'>Назад</a> </body>
 </html>

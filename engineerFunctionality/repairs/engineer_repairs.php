@@ -2,6 +2,20 @@
 
 session_start();
 
+if (isset($_SESSION['current_file'])){
+
+    $_SESSION['prev_file'] = $_SESSION['current_file'];
+
+}else{
+    $_SESSION['current_file'] = $_SERVER['SCRIPT_NAME'];
+}
+
+if (is_null($_SESSION['job']) or $_SESSION['job'] != 'engineer'){
+
+    header("Location: ../access_denied.php");
+
+}
+
 require_once('../../database.php');
 
 $id_engineer = $_SESSION['ID_Engineer'];
@@ -60,3 +74,4 @@ while ($row = mysqli_fetch_array($repairs)) {
     echo "</div>";
 
 }
+echo "<body> <a href='../engineer_panel.php'>Назад</a> </body>";
