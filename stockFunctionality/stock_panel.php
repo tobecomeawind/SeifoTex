@@ -55,7 +55,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
         <th>Наименование</th>
         <th>Тип</th>
         <th>Фабричный ID</th>
-        <th>Стоимость 1 шт.</th>
+        <th>Стоимость 1 шт. в рублях</th>
         <th>Кл-во деталей на складе</th>
       </tr>
 
@@ -81,7 +81,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
           echo "<td>" . $row['Name'] . "</td>";
           echo "<td>" . $name_spec . "</td>";
           echo "<td>" . $row['factory_id'] . "</td>";
-          echo "<td>" . $row['cost'] . " р. </td>";
+          echo "<td>" . $row['cost'] . "</td>";
           echo "<td>";
           echo '<form action="minus_detail.php" method="POST">';
           echo"<input type='hidden' name='id_detail' value='$id_detail'>";

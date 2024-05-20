@@ -28,7 +28,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
             Изменение деталей банкомата
         </header>
         <p><?php echo $_POST['atm']; ?></>
-<form action="add_atm_detail.php" method="POST">
+<form action="send_atm_detail.php" method="POST">
 
         <?php
 
@@ -51,16 +51,20 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
                 $detail_info  = $detail_query->fetch_assoc();
                 $name         = $detail_info['Name'];
 
-                $id_spec = $row['ID_Specification'];
+                $id_spec = $detail_info['ID_Specification'];
                 $specification_query = $connection->query("SELECT * FROM `specifications` WHERE `ID_Specification`='$id_spec'");
                 $specification_info  = $specification_query->fetch_assoc();
                 $name_spec           = $specification_info['Name']; 
 
                 $counter++;
-                echo $name_spec; 
-                echo "<p>".$counter .". Наименование: ".$name."</p>";
-                echo "<p>Тип детали: ".$name_spec."</p>";
-
+ 
+                echo "<p>".$counter .". ".$name." (".$name_spec.")";
+                echo '<form action="minus_atm_detail.php" method="POST">';
+                echo "<input type='hidden' name='id_detail' value='$id_detail'>";
+                echo "<input type='hidden' name='id_atm' value='$id_atm'>";
+                echo '<button type="submit" name="button">-</button>';
+                echo '</form>';        
+                echo "</p>";
             } 
         }else{
             echo "<p>У данного банкомата не указаны детали</p>";
@@ -90,18 +94,16 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
 
                         </datalist>
                         
-                </div>
+                
                 <input type='hidden' name='atm' value=<?php echo '"'.$_POST['atm'].'"' ?> >
                 <div class="field">
                     <input type="submit" name="submit" value="Добавить деталь" required>
                 </div>
-        </form>
-
-    </div>
-    
+        </div>
+    </form>
 </div>
 
 </body>
-<body> <a href='../stock_panel.php'>Назад</a> </body>
+<body> <a href='../add_atm.php'>Назад</a> </body>
 </html>
 

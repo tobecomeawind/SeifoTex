@@ -3,7 +3,7 @@
 <head>
     <title>Доступ запрещен</title>
 </head>
-<body >
+<body>
     <center>
         <h1>Доступ запрещен</h1>
         <p>К сожалению, у вас нет прав для доступа к запрошенной странице.</p>
@@ -15,8 +15,6 @@
 
 <?php
 session_start();
-
-print_r($_SESSION);
 
 $prev_file = $_SESSION['prev_file'];    
 
