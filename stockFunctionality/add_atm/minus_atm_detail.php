@@ -16,11 +16,18 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
 }
 require_once("../../database.php");
 
-$id_detail = $_POST['id_detail'];
-$id_atm    = $_POST['id_atm'];
+$detail = $_POST['detail'];
+$detail_query = $connection->query("SELECT * FROM `details` WHERE `Name`='$detail'");
+$detail_info  = $detail_query->fetch_assoc();
+$id_detail    = $detail_info['ID_Detail'];
+
+$model     = $_POST['atm'];
+$atm_query = $connection->query("SELECT * FROM `atms` WHERE `Model`='$model'");
+$atm_info  = $atm_query->fetch_assoc();
+$id_atm    = $atm_info['ID_ATM'];
 
 $connection->query("DELETE FROM `atms-details` WHERE `ID_ATM`='$id_atm' and `ID_Detail`='$id_detail'");
 
 
-header('Location: stock_panel.php');
+header('Location: add_atm_detail.php?atm='.$model);
 ?>

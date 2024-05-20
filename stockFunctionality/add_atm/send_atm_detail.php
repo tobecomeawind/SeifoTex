@@ -30,6 +30,5 @@ $id_atm    = $atm_info['ID_ATM'];
 
 $connection->query("INSERT INTO `atms-details`(`ID_ATM`, `ID_Detail`) VALUES ('$id_atm','$id_detail')");
 
-header("Location: add_atm_detail.php");
-
+header("Location: add_atm_detail.php?atm=".$model);
 ?>
