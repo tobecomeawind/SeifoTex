@@ -15,12 +15,12 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
 
 }
 
-require_once('../database.php');
+require_once('../../database.php');
 
 $name = $_POST['spec'];
 
 $connection->query("INSERT INTO `specifications` (`Name`) VALUES ('$name')");
 
-header("Location: stock_panel.php");
+header("Location: add_detail.php");
 
 ?>

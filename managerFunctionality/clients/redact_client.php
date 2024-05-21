@@ -54,10 +54,10 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'order'){
                 <input type="text" placeholder="Введите адрес" name="address" id="address" value=<?php echo "'".$_POST['address']."'";?> required>
             </div>
 
-            <input type='text' name='id_client' value=<?php echo "'".$_POST['id_client']."'";?>>
+            <input type='hidden' name='id_client' value=<?php echo "'".$_POST['id_client']."'";?>>
 
             <div class="field">
-                <input type="submit" name="submit" value="Изменить" required>
+                <input type="submit" value="Изменить" required>
 
         </form>
     </div>

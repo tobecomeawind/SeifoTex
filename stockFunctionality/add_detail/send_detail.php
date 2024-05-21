@@ -14,7 +14,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
     header("Location: ../access_denied.php");
 
 }
-require_once("../database.php");
+require_once("../../database.php");
 
 $name = $_POST['name'];
 $spec = $_POST['spec'];
@@ -29,5 +29,5 @@ $cost       = $_POST['cost'];
 
 $connection->query("INSERT INTO `details`(`Name`, `ID_Specification`, `factory_id`, `Quantity_details`, `cost`) VALUES ('$name','$id_spec','$factory_id','$quantity','$cost')");
 
-header("Location: stock_panel.php");
+header("Location: add_detail.php");
 ?>

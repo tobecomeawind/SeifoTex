@@ -86,13 +86,13 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
           echo '<form action="minus_detail.php" method="POST">';
           echo"<input type='hidden' name='id_detail' value='$id_detail'>";
           echo"<input type='hidden' name='quantity' value='$quantity'>";
-          echo '<button type="submit" name="button">-</button>';
+          echo '<button >-</button>';
           echo '</form>';
           echo $row['Quantity_details'];
           echo '<form action="plus_detail.php" method="POST">';
           echo"<input type='hidden' name='id_detail' value='$id_detail'>";
           echo"<input type='hidden' name='quantity' value='$quantity'>";
-          echo '<button type="submit" name="button">+</button>';
+          echo '<button >+</button>';
           echo '</form>';
           echo  "</td>";
           echo "</tr>";

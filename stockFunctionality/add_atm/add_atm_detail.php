@@ -86,7 +86,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
         ?>
             <div class="field input">
                     <label for="detail">Выберите детали для добавления</label>
-                        <input id="detail" name="detail" list="details" placeholder="Выберите деталь">
+                        <input id="detail" name="detail" list="details" placeholder="Выберите деталь" required>
                         <datalist id='details'>
 
                             <?php
@@ -109,45 +109,67 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
                 
                 <input type='hidden' name='atm' value=<?php echo '"'.$model.'"' ?> >
                 <button >Добавить деталь</button>
-</form>
-<form action="minus_atm_detail.php" method="POST">
-    <label for="detail">Выберите детали для удаления</label>
-        <input id="detail" name="detail" list="atm_details" placeholder="Выберите деталь">
-        <datalist id='atm_details'>
-        <?php
-
-        require_once("../../database.php");
-
-        $atm_query = $connection->query("SELECT * FROM `atms` WHERE `Model`='$model'");
-        $atm_info  = $atm_query->fetch_assoc(); 
-        $id_atm    = $atm_info['ID_ATM'];
-
-        $atm_detail_query = $connection->query("SELECT * FROM `atms-details` WHERE `ID_ATM`='$id_atm'");
-
-        if ($atm_detail_query->num_rows>0){
-
-            while($row=$atm_detail_query->fetch_assoc()){
-
-                $id_detail = $row['ID_Detail'];
-                $detail_query = $connection->query("SELECT * FROM `details` WHERE `ID_Detail`='$id_detail'");
-                $detail_info  = $detail_query->fetch_assoc();
-                $name         = $detail_info['Name'];
-                
-                echo "<option value='".$name."'></option>";      
-            }
-            echo "</datalist>";
-            echo "<input type='hidden' name='atm' value='".$model."'>";
-            echo '<button >Удалить деталь</button>';
-        }else{
-            echo "</datalist>";
-            echo "<p>У банкомата нет деталей</p>";
-        }                       
-        ?>
-
+            </div>
     </form>
-</div>
+<?php
 
+    require_once("../../database.php");
+
+    $atm_query = $connection->query("SELECT * FROM `atms` WHERE `Model`='$model'");
+    $atm_info  = $atm_query->fetch_assoc(); 
+    $id_atm    = $atm_info['ID_ATM'];
+
+    $atm_detail_query = $connection->query("SELECT * FROM `atms-details` WHERE `ID_ATM`='$id_atm'");
+
+    if ($atm_detail_query->num_rows > 0){
+
+    echo '<form action="minus_atm_detail.php" method="POST">';
+    echo '<label for="detail">Выберите детали для удаления</label>';
+    echo '<input id="detail" name="detail" list="atm_details" placeholder="Выберите деталь" required>';
+    echo "<datalist id='atm_details'>";
+
+    while($row=$atm_detail_query->fetch_assoc()){
+
+            $id_detail = $row['ID_Detail'];
+            $detail_query = $connection->query("SELECT * FROM `details` WHERE `ID_Detail`='$id_detail'");
+            $detail_info  = $detail_query->fetch_assoc();
+            $name         = $detail_info['Name'];
+            
+            echo "<option value='".$name."'></option>";      
+        }
+        echo "</datalist>";
+        echo "<input type='hidden' name='atm' value='".$model."'>";
+        echo '<button >Удалить деталь</button>';
+    }                      
+        
+    echo"</form>";
+    echo "</div>";
+?>
 </body>
 <body> <a href='add_atm.php'>Назад</a> </body>
+<body>
+
+    <p>Статус банкомата</p>
+    <?php
+
+        $completed_atms_query = $connection->query("SELECT * FROM `completed_atms` WHERE `ID_ATM`='$id_atm'");
+
+        echo "<form action='change_atm_status.php' method='POST'>";
+        echo "<button>";
+        if ($completed_atms_query->num_rows > 0){
+
+            echo "Банкомат полностью укомплектован";
+
+        }else{
+
+            echo "Банкомат не укомплектован";
+
+        }
+        echo "</button>";
+        echo "</form>";
+
+    ?>
+
+</body>
 </html>
 
