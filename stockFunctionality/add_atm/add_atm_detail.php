@@ -146,18 +146,18 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
     echo "</div>";
 ?>
 </body>
-<body> <a href='add_atm.php'>Назад</a> </body>
 <body>
 
-    <p>Статус банкомата</p>
+    <p>Смена статуса банкомата</p>
     <?php
 
         $completed_atms_query = $connection->query("SELECT * FROM `completed_atms` WHERE `ID_ATM`='$id_atm'");
 
-        echo "<form action='change_atm_status.php' method='POST'>";
-        echo "<button>";
+        $post_param = '';
+
         if ($completed_atms_query->num_rows > 0){
 
+            $post_param = "full";
             echo "Банкомат полностью укомплектован";
 
         }else{
@@ -165,11 +165,20 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
             echo "Банкомат не укомплектован";
 
         }
+
+
+        echo "<form action='change_atm_status.php' method='POST'>";
+        echo "<button>";
+        echo "Сменить";
+        echo "<input type='hidden' name='".$post_param."'>";
+        echo "<input type='hidden' name='id_atm' value=$id_atm".">";
+        echo "<input type='hidden' name='atm' value=$model".">";
         echo "</button>";
         echo "</form>";
 
     ?>
 
 </body>
+<body> <a href='add_atm.php'>Назад</a> </body>
 </html>
 

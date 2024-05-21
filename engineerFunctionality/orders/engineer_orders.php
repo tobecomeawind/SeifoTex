@@ -15,6 +15,8 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'engineer'){
 
 }
 
+echo "<body> <a href='../engineer_panel.php'>Назад</a> </body>";
+
 require_once('../../database.php');
 
 $login = $_SESSION['username'];
@@ -46,6 +48,17 @@ while ($row = mysqli_fetch_array($orders)) {
     $problem = $atms_info['problem'];
 
 
+    $complete_atm_query = $connection->query("SELECT * FROM `completed_atms` WHERE `ID_ATM`='$id_atm'");
+    if ($complete_atm_query->num_rows != 0){
+
+        $status = 'Да';
+
+    }else{
+
+        $status = 'Нет';
+
+    }
+
     echo "<div class='order' style='text-align: center'>";
     echo "<h3>Заказ № " . $row['ID_Order'] . "</h3>";
     echo "<p>Имя клиента: " . $client['ФИО'] . "</p>";
@@ -53,6 +66,8 @@ while ($row = mysqli_fetch_array($orders)) {
     echo "<p>Адрес: " . $client['АДРЕС'] . "</p>";
     echo "<p>Дата заказа: " . $row['Date'] . "</p>";
     echo "<p>Модель банкомата: " . $model . "</p>";
+    echo "<p>Укомплектован: ".$status."</p>";
+
 
     echo "<details>";
     echo "<summary> Проблема клиента </summary>";
@@ -68,5 +83,5 @@ while ($row = mysqli_fetch_array($orders)) {
 
     echo "</div>";
 
-echo "<body> <a href='../engineer_panel.php'>Назад</a> </body>";
+
 }

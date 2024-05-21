@@ -39,8 +39,6 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
                     <input id="spec" name="spec" list="specifications" placeholder="Выберите спецификацию" required>
                     <datalist id='specifications'>
 
-                        <option value="">Не указано</option>
-
                         <?php
 
                         require_once('../../database.php');
@@ -84,9 +82,33 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
                 <label for="spec">Название спецификации</label>
                     <input type="text" placeholder="Введите название спецификации" name="spec" id="spec"
                     required>
-                <button type="submit" name="button">Добавить спецификацию</button>
+                <button type="submit">Добавить спецификацию</button>
             </div>
 
+        </form>
+        </form>
+            <form action="delete_detail.php" method="POST">
+            <div class="field input">
+                <label for="delete_detail">Удалить деталь по ID</label>
+                    <input type="text" placeholder="Введите ID детали" list="ids_details" name="id_detail" required>
+                    <datalist id="ids_details">
+
+                        <?php
+
+                        $details_query = $connection->query('SELECT * FROM `details`');
+
+                        while ($row = mysqli_fetch_array($details_query)){
+
+                            $id_detail = $row['ID_Detail'];
+
+                            echo "<option value='".$id_detail."'>".$id_detail."</option>";   
+                        }
+
+                        ?>
+
+                    </datalist>
+                <button type="submit">Удалить</button>
+            </div>
         </form>
     </div>
 </div>

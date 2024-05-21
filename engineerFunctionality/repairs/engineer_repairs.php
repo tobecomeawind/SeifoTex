@@ -41,6 +41,19 @@ while ($row = mysqli_fetch_array($repairs)) {
     $atms_info = $atms->fetch_assoc();
     $problem = $atms_info['problem'];
 
+
+    $complete_atm_query = $connection->query("SELECT * FROM `completed_atms` WHERE `ID_ATM`='$id_atm'");
+    if ($complete_atm_query->num_rows != 0){
+
+        $status = 'Да';
+
+    }else{
+
+        $status = 'Нет';
+
+    }
+
+
     echo "<div class='order' style='text-align: center'>";
     echo "<h2>Ремонтная услуга № " . $row['ID_Repair'] . "</h2>";
     echo "<p>Заказ №: " . $row['ID_Order'] . "</p>";
@@ -60,18 +73,108 @@ while ($row = mysqli_fetch_array($repairs)) {
     echo "</body>";
 
     echo "<p>Модель банкомата: " . $atm_info['Model'] . "</p>";
+    echo "<p>Укомплектован: ".$status."</p>";
+    echo "<details>";
+    echo "<summary>Используемые детали</summary>";
+
+    $id_repair = $row['ID_Repair'];
+    $repairs_details_query = $connection->query("SELECT * FROM `repairs_details` WHERE `ID_Repair`='$id_repair'");
+    $used_details = array();
+
+    if ($repairs_details_query->num_rows > 0){
+
+        $counter = 0;
+
+        $total_cost = 0;
+
+        while($repair_detail = $repairs_details_query->fetch_assoc()){
+
+            $id_detail = $repair_detail['ID_Detail'];
+            $detail_query = $connection->query("SELECT * FROM `details` WHERE `ID_Detail`='$id_detail'");
+            $detail_info  = $detail_query->fetch_assoc();
+            $name         = $detail_info['Name'];
+            
+            $counter++;
+            echo "<p>".$counter.". ".$name."  (".$detail_info['cost']." р.)"."</p>";
+
+            $total_cost += $detail_info['cost'];
+
+            array_push($used_details, $name);      
+        }
+
+        echo "Итоговая стоимость деталей: ".$total_cost." р.";
+
+    }else{
+        echo "<p>На данный момент ремонтная услуга не содержит деталей</p>";
+    }               
+
+    echo '<form action="send_repair_detail.php" method="POST">';
+    echo '<label for="repair_detail"></label>';
+    echo '<input id="repair_detail" name="repair_detail" list="atm_details" placeholder="Выберите деталь для добавления" required>';
+    echo "<datalist id='atm_details'>";
+        
+
+    $details_query = $connection->query('SELECT * FROM `details`');
+
+    while($detail = mysqli_fetch_array($details_query)){
+
+        if (!in_array($detail['Name'], $used_details)){
+            echo "<option value='".$detail['Name']."'>".$detail['Name']."</option>";
+        }
+    }
+    echo "</datalist>";    
+    echo "<input type='hidden' name='id_repair' value='" . $id_repair . "'>";
+    echo "<button type='submit'>Добавить деталь</button>";
+    echo"</form>";
+
+    if ($used_details){
+        echo '<form action="delete_repair_detail.php" method="POST">';
+        echo '<label for="repair_detail"></label>';
+        echo '<input id="repair_detail" name="repair_detail" list="deletable_details" placeholder="Выберите деталь для удаления" required>';
+        echo "<datalist id='deletable_details'>";
+            
+        $details_info = $detail_query->fetch_assoc();
+
+        foreach($used_details as $name){  
+
+            echo "<option value='".$name."'>".$name."</option>";
+            
+        }
+        echo "</datalist>";    
+        echo "<input type='hidden' name='id_repair' value='" . $id_repair . "'>";
+        echo "<button type='submit'>Удалить деталь</button>";
+        echo"</form>";
+    }
+    echo "</details>";
+
+
+    echo "<details>";
+    echo "<summary>Стоимость услуг</summary>";
+    echo "<form action='change_service_cost.php' method='post'>";
+    echo "<input type='hidden' name='id_repair' value='" . $id_repair . "'>";
+    echo "<input type='text' name='money' value='".$row['service_cost']."'>";
+    echo "<button type='submit'>Изменить</button>";
+    echo "</form>";
+    echo "</details>";
+
+    echo "<p>Итоговая стоимость ремонтной услуги: ".$total_cost+$row['service_cost']."</p>";
 
     echo "<form action='accept_order.php' method='post'>";
-    echo "<input type='hidden' name='ID_Order' value='" . $row['ID_Order'] . "'>";
-    echo "<button type='submit' name='accept_order'>Ремонт совершен</button>";
+    echo "<input type='hidden' name='id_order' value='" . $row['ID_Order'] . "'>";
+    echo "<input type='hidden' name='id_repair' value='" . $id_repair . "'>";
+    echo "<input type='hidden' name='id_client' value='" . $id_client . "'>";
+    echo "<input type='hidden' name='total_cost' value='" . $total_cost+$row['service_cost'] . "'>";
+    echo "<button type='submit'>Ремонт совершен</button>";
     echo "</form>";
 
     echo "<form action='decline_order.php' method='post'>";
     echo "<input type='hidden' name='ID_Order' value='" . $row['ID_Order'] . "'>";
-    echo "<button type='submit' name='decline_order'>Отменить заказ</button>";
+    echo "<button type='submit'>Отменить заказ</button>";
     echo "</form>";
 
     echo "</div>";
+
+
 
 }
 echo "<body> <a href='../engineer_panel.php'>Назад</a> </body>";
