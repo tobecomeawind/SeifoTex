@@ -15,6 +15,21 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'engineer'){
     header("Location: ../access_denied.php");
 
 }
+
+require_once('../database.php');
+
+
+$login = $_SESSION['username'];
+
+$result = $connection->query("SELECT * FROM `engineer` WHERE `login` = '$login'");
+
+$engineer_info = $result->fetch_assoc();
+
+$id_engineer = $engineer_info['ID_Engineer'];
+
+$_SESSION['ID_Engineer'] = $id_engineer;
+
+
 ?>
 
 <!DOCTYPE html>

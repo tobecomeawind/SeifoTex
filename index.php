@@ -4,6 +4,7 @@ session_start();
 unset($_SESSION['username']);
 unset($_SESSION['job']);
 unset($_SESSION['current_file']);
+unset($_SESSION['ID_Engineer']);
 
 $_SESSION['prev_file'] = $_SERVER['SCRIPT_NAME'];
 

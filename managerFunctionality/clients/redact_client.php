@@ -27,6 +27,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'order'){
     <link rel="stylesheet" href="../style.css">
 <div class="container">
     <div class="box form-box">
+        <body> <a href='clients.php'>Назад</a> </body>
         <header>
             Редактирование данных клиента
         </header>

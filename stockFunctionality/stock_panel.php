@@ -34,7 +34,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
         <nav>
             <ul>
                 <form action="add_detail/add_detail.php" method="post">
-                    <button type="submit" name="button">Внести деталь</button>
+                    <button type="submit" name="button">Меню работы с деталями</button>
                 </form>
             </ul>
         </nav>
@@ -43,7 +43,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
 </body>
 
         <form action="add_atm/add_atm.php" method="POST">
-                <button type="submit" name="button">Добавить банкомат</button>
+                <button type="submit" name="button">Меню работы с банкоматами</button>
             </div>
         </form>
 <body>

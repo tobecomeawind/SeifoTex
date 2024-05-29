@@ -37,8 +37,9 @@ if ($result->num_rows > 0){
     }
     $_SESSION['job'] = $job;
 
-}else{
-    echo "Error";
+}else{ 
+    echo "Вы неверно ввели логин или пароль!";
+    header("Refresh: 5; url=".$_SERVER['HTTP_REFERER']);
 }
 
 ?>

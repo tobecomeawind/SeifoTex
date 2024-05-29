@@ -97,7 +97,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
 
                             while($row = mysqli_fetch_array($details_info)){
 
-                                if (!in_array($row['Name'], $used_details)){
+                                if (!in_array($row['Name'], $used_details) && ($row['Quantity_details'] != 0)){
                                     echo "<option value='".$row['Name']."'>".$row['Name']."</option>";
                                 }
                             }
@@ -107,7 +107,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
                         </datalist>
                         
                 
-                <input type='hidden' name='atm' value=<?php echo '"'.$model.'"' ?> >
+                <input type='hidden' name='atm' value='<?php echo $model?>' >
                 <button >Добавить деталь</button>
             </div>
     </form>
@@ -172,7 +172,7 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'stock'){
         echo "Сменить";
         echo "<input type='hidden' name='".$post_param."'>";
         echo "<input type='hidden' name='id_atm' value=$id_atm".">";
-        echo "<input type='hidden' name='atm' value=$model".">";
+        echo "<input type='hidden' name='atm' value='$model'".">";
         echo "</button>";
         echo "</form>";
 

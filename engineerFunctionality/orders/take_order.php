@@ -18,6 +18,8 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'engineer'){
 
 require_once('../../database.php');
 
+print_r($_POST);
+
 $id_engineer = $_SESSION['ID_Engineer'];
 
 $id_order    = $_POST['id_order'];

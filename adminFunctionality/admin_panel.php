@@ -36,12 +36,12 @@
 
             <div class="field input">
                 <label for="username">Логин</label>
-                <input type="text" placeholder="Lогин" name="username" id="username" required>
+                <input type="text" placeholder="Логин" name="username" id="username" required>
             </div>
 
             <div class="field input">
                 <label for="password">Пароль</label>
-                <input type="password" placeholder="Pароль" name="password" id="password" required>
+                <input type="password" placeholder="Пароль" name="password" id="password" required>
             </div>
 
             <div class="field input">

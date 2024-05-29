@@ -16,7 +16,6 @@ if (is_null($_SESSION['job']) or $_SESSION['job'] != 'admin'){
 
 }
 
-
 require_once('../database.php');
 
 $login      = $_POST['username'];
@@ -25,6 +24,9 @@ $job        = $_POST['job'];
 
 $connection->query("INSERT INTO `workers`(`login`, `password`, `job`) VALUES ('$login','$password','$job')");
 
+if ($job=='engineer'){
+    $connection->query("INSERT INTO `engineer`(`login`) VALUES ('$login')");
+}
 
 header("Location: admin_panel.php");
 
